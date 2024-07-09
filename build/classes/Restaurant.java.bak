@@ -1,0 +1,51 @@
+public class Restaurant {
+    private String name;
+    private String callNum; // call_num을 callNum으로 수정
+    private String[] hours;
+    private String breakTime; // break_time을 breakTime으로 수정
+    private String menuName; // menu_name을 menuName으로 수정
+    private int menuPrice; // menu_price을 menuPrice로 수정
+    private int[] rate;
+
+    public Restaurant(String name, String callNum, String[] hours, String breakTime,
+                      String menuName, int menuPrice, int[] rate) {
+        this.name = name;
+        this.callNum = callNum;
+        this.hours = new String[hours.length];
+        System.arraycopy(hours, 0, this.hours, 0, hours.length);
+        this.breakTime = breakTime;
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
+        this.rate = new int[rate.length];
+        System.arraycopy(rate, 0, this.rate, 0, rate.length);
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public String getCallNum() {
+        return callNum;
+    }
+
+    public String getHours() {
+        return hours.clone(); // 배열의 복사본을 반환하여 외부에서의 수정을 방지
+    }
+
+    public String getBreakTime() {
+        return breakTime;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public int getMenuPrice() {
+        return menuPrice;
+    }
+
+    public int getRate() {
+        return rate.clone(); // 배열의 복사본을 반환하여 외부에서의 수정을 방지
+    }
+}
