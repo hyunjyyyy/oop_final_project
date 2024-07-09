@@ -1,5 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,17 +12,10 @@ public class RestaurantController {
     public RestaurantController(RestaurantView view) {
         this.view = view;
         this.allRestaurants = loadRestaurantsFromDatabase();
-
-        this.view.getShowButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<Restaurant> italianRestaurants = filterRestaurantsByGenre("한식");
-                view.displayRestaurants(italianRestaurants);
-            }
-        });
+        this.view.loadData(this); // RestaurantView에 데이터를 로드합니다.
     }
 
-    private List<Restaurant> loadRestaurantsFromDatabase() {
+    public List<Restaurant> loadRestaurantsFromDatabase() {
         List<Restaurant> restaurants = new ArrayList<>();
         String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/oop_project";
         String username = "root";
@@ -68,15 +59,5 @@ public class RestaurantController {
             e.printStackTrace();
         }
         return restaurants;
-    }
-
-    private List<Restaurant> filterRestaurantsByGenre(String genre) {
-        List<Restaurant> filtered = new ArrayList<>();
-        for (Restaurant restaurant : allRestaurants) {
-            if (restaurant.getGenre().equals(genre)) {
-                filtered.add(restaurant);
-            }
-        }
-        return filtered;
     }
 }
