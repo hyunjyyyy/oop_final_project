@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CategoryPanel {
+    private String category; // 카테고리 필드 추가
     private JPanel panel;
     private DefaultListModel<JPanel> listModel;
     private List<Restaurant> restaurants;
 
     public CategoryPanel(String category) {
+        this.category = category; // 카테고리 초기화
         panel = new JPanel(new BorderLayout());
         listModel = new DefaultListModel<>();
         restaurants = new ArrayList<>();
@@ -24,6 +26,10 @@ public class CategoryPanel {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    public String getCategory() {
+        return category; // 카테고리 이름 반환
     }
 
     public void addRestaurant(Restaurant restaurant) {
@@ -50,9 +56,17 @@ public class CategoryPanel {
         panelContainer.repaint();
     }
 
+    public void clear() {
+        JPanel panelContainer = (JPanel) ((JScrollPane) panel.getComponent(0)).getViewport().getView();
+        panelContainer.removeAll();
+        listModel.clear();
+        panelContainer.revalidate();
+        panelContainer.repaint();
+    }
+
     private void showRestaurantDetails(JPanel restaurantPanel) {
         JFrame detailsFrame = new JFrame("Restaurant Details");
-        detailsFrame.setSize(400, 300);
+        detailsFrame.setSize(400, 500);
         detailsFrame.setLayout(new BorderLayout());
 
         RestaurantPanel infoPanel = new RestaurantPanel(restaurantPanel);

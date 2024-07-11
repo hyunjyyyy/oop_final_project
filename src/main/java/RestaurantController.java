@@ -52,8 +52,10 @@ public class RestaurantController {
                     resultSet.getInt("별점(김찬미)"),
                     resultSet.getInt("별점(유현지)")
                 };
+                
+                String url = resultSet.getString("지도 주소");
 
-                restaurants.add(new Restaurant(name, genre, address, hours, breakTime, phoneNumber, menuName, menuPrice, ratings));
+                restaurants.add(new Restaurant(name, genre, address, hours, breakTime, phoneNumber, menuName, menuPrice, ratings, url));
             }
         } catch (Exception e) {
             e.printStackTrace();

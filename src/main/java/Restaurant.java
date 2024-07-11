@@ -11,9 +11,10 @@ public class Restaurant {
     private String menuName;
     private int menuPrice;
     private int[] ratings;
+    private String url;
 
     public Restaurant(String name, String genre, String address, String[] hours, String breakTime,
-                      String phoneNumber, String menuName, int menuPrice, int[] ratings) {
+                      String phoneNumber, String menuName, int menuPrice, int[] ratings, String url) {
         this.name = name;
         this.genre = genre;
         this.address = address;
@@ -23,6 +24,7 @@ public class Restaurant {
         this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.ratings = ratings.clone();
+        this.url = url;
     }
 
     // Getter methods
@@ -63,7 +65,30 @@ public class Restaurant {
     }
 
     // 평균 별점 계산
-    public double getAverageRating() {
+    public String getAverageRating() {
+        int sum = 0;
+        int count = 0;
+        String star;
+        for (int rating : ratings) {
+            if (rating > 0) { // 0 이상의 별점만 계산
+                sum += rating;
+                count++;
+            }
+        }
+        
+        if (count > 0) {
+        	if (sum/count >= 4.5) star = "★★★★★";
+        	else if (sum/count >= 3.5) star = "★★★★";
+        	else if (sum/count >= 2.5) star = "★★★";
+        	else if (sum/count >= 1.5) star = "★★";
+        	else star = "★";
+        }
+        else star = "별점없음";
+        
+        return star;
+    }
+    
+    public double getAverageRatingDouble() {
         int sum = 0;
         int count = 0;
         for (int rating : ratings) {
@@ -96,5 +121,9 @@ public class Restaurant {
             default:
                 return "Closed";
         }
+    }
+    
+    public String getURL() {
+    	return url;
     }
 }
